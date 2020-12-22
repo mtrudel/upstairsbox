@@ -10,11 +10,29 @@ defmodule Upstairsbox.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Upstairsbox.Supervisor]
 
+    hap_server_config = %HAP.AccessoryServer{
+      name: "Upstairs Hallway HAP Gateway",
+      identifier: "11:22:33:44:55:66",
+      accessory_type: 2,
+      accessories: [
+        %HAP.Accessory{
+          name: "Skylight Blinds",
+          services: [
+            %HAP.Services.WindowCovering{
+              current_position: {Upstairsbox.WindowCovering, :current_position},
+              target_position: {Upstairsbox.WindowCovering, :target_position},
+              position_state: {Upstairsbox.WindowCovering, :position_state},
+              hold_position: {Upstairsbox.WindowCovering, :hold_position}
+            }
+          ]
+        }
+      ]
+    }
+
     children =
       [
-        # Children for all targets
-        # Starts a worker by calling: Upstairsbox.Worker.start_link(arg)
-        # {Upstairsbox.Worker, arg},
+        Upstairsbox.WindowCovering,
+        {HAP, hap_server_config}
       ] ++ children(target())
 
     Supervisor.start_link(children, opts)

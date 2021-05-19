@@ -37,6 +37,7 @@ defmodule Upstairsbox.MixProject do
       {:toolshed, "~> 0.2.13"},
       {:hap, "~> 0.3.3"},
       {:circuits_gpio, "~> 0.4"},
+      {:ramoops_logger, "~> 0.3.0"},
 
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.11.3", targets: @all_targets},

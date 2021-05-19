@@ -35,7 +35,7 @@ defmodule Upstairsbox.WindowCovering do
   @impl GenServer
   def init(_) do
     # Home ourselves to fully open at startup
-    {:ok, %{current: 0.0, target: 100.0, position_state: @stopped} |> seek()}
+    {:ok, %{current: 50.0, target: 50.0, position_state: @stopped} |> seek()}
   end
 
   @impl GenServer
